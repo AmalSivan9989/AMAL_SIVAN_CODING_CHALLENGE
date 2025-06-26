@@ -1,0 +1,5 @@
+package com.hexa.task.exception;
+
+public class TaskNotFoundException {
+
+}

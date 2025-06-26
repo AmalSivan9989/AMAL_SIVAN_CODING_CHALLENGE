@@ -1,0 +1,58 @@
+package com.hexa.task.service;
+
+
+import com.hexa.task.exception.TaskNotFoundException;
+import com.hexa.task.model.Task;
+import com.hexa.task.repo.TaskRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class TaskService {
+
+    @Autowired
+    private TaskRepository taskRepository;
+
+    public ResponseEntity<List<Task>> getAllTasks() {
+        List<Task> tasks = taskRepository.findAll();
+        return new ResponseEntity<>(tasks, HttpStatus.OK);
+    }
+
+    public ResponseEntity<Task> getTaskById(Integer id) {
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new TaskNotFoundException("Task not found with ID: " + id));
+        return new ResponseEntity<>(task, HttpStatus.OK);
+    }
+
+    public ResponseEntity<Task> createTask(Task task) {
+        Task savedTask = taskRepository.save(task);
+        return new ResponseEntity<>(savedTask, HttpStatus.CREATED);
+    }
+
+    public ResponseEntity<Task> updateTask(Integer id, Task updatedTask) {
+        Task existingTask = taskRepository.findById(id)
+                .orElseThrow(() -> new TaskNotFoundException("Task not found with ID: " + id));
+
+        existingTask.setTitle(updatedTask.getTitle());
+        existingTask.setDescription(updatedTask.getDescription());
+        existingTask.setDueDate(updatedTask.getDueDate());
+        existingTask.setPriority(updatedTask.getPriority());
+        existingTask.setStatus(updatedTask.getStatus());
+
+        Task savedTask = taskRepository.save(existingTask);
+        return new ResponseEntity<>(savedTask, HttpStatus.OK);
+    }
+
+    public ResponseEntity<Void> deleteTask(Integer id) {
+        if (!taskRepository.existsById(id)) {
+            throw new TaskNotFoundException("Task not found with ID: " + id);
+        }
+        taskRepository.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+}

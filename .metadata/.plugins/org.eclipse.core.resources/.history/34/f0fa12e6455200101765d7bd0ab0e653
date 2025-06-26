@@ -1,0 +1,5 @@
+package com.hexa.task.config;
+
+public class JwtAuthFilter {
+
+}

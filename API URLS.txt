@@ -1,0 +1,59 @@
+
+-->PERMIT ALL
+
+localhost:2003/auth/addNewUser
+
+{
+  "name": "Sivan",
+  "email": "sivan@gmail.com",
+  "password": "sivan123",
+  "roles": "ROLE_ADMIN"
+}
+
+localhost:2003/auth/generateToken
+
+{
+  "username": "Sivan",
+  "password": "sivan123"
+}
+
+eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJTaXZhbiIsImlhdCI6MTc1MDkxOTY4OCwiZXhwIjoxNzUwOTIxNDg4fQ._WHjm0RJpgePjbHP9MWZNQxkGmD8Fl63Ep4bfCjkj_E
+
+
+
+localhost:2003/api/tasks/getAllTasks
+
+-----------------------------------------------------------------
+
+--> ADMIN PERMIT
+
+localhost:2003/api/tasks/createTask
+
+{
+  "title": "Complete Coding challenge",
+  "description": "Try to implement everything",
+  "dueDate": "2025-06-30",
+  "priority": "HIGH",
+  "status": "PENDING"
+}
+
+localhost:2003/api/tasks/updateTask/1
+
+{
+    "taskId": 1,
+    "title": "Complete Case Study",
+    "description": "Implement spring jwt everything",
+    "dueDate": "2025-06-29",
+    "priority": "HIGH",
+    "status": "IN_PROGRESS"
+}
+
+http://localhost:2003/api/tasks/deleteTask/6
+
+
+----------------------------------------------------------
+
+---> ADMIN AND USER PERMIT
+
+localhost:2003/api/tasks/getTaskById/1
+

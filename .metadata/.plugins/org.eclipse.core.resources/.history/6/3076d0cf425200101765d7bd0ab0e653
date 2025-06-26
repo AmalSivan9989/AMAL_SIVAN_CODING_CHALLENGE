@@ -1,0 +1,5 @@
+package com.hexa.task.repo;
+
+public class UserDataRepository {
+
+}

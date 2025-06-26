@@ -1,0 +1,8 @@
+package com.hexa.task.repo;
+
+import com.hexa.task.model.UserData;
+import org.springframework.data.jpa.repository.JpaRepository;
+public interface UserDataRepository extends JpaRepository<UserData, Long> {
+    UserData findByUsername(String username);
+    UserData findByUsernameAndLoginPassword(String username, String loginPassword);
+}
